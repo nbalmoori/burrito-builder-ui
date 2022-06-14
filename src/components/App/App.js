@@ -14,9 +14,11 @@ class App extends Component {
 
   newOrder = (name, ingredients) => {
     submitOrder(name, ingredients)
-    getOrders()
-      .then(response => this.setState( {orders: response.orders} ))
-      .catch(err => console.error('Error fetching:', err));
+    .then(() => 
+      getOrders()
+        .then(response => this.setState( {orders: response.orders} ))
+        .catch(err => console.error('Error fetching:', err))
+    )
   }
 
   componentDidMount() {
