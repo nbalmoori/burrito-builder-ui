@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {getOrders} from '../../apiCalls';
+import {getOrders, submitOrder} from '../../apiCalls';
 import Orders from '../../components/Orders/Orders';
 import OrderForm from '../../components/OrderForm/OrderForm';
 
@@ -12,9 +12,15 @@ class App extends Component {
     }
   }
 
+  newOrder = (name, ingredients) => {
+    submitOrder(name, ingredients)
+    getOrders()
+      .then(response => this.setState( {orders: response.orders} ))
+      .catch(err => console.error('Error fetching:', err));
+  }
+
   componentDidMount() {
     getOrders()
-      // .then(response => response.orders)
       .then(response => this.setState( {orders: response.orders} ))
       .catch(err => console.error('Error fetching:', err));
   }
@@ -24,7 +30,7 @@ class App extends Component {
       <main className="App">
         <header>
           <h1>Burrito Builder</h1>
-          <OrderForm />
+          <OrderForm newOrder={this.newOrder}/>
         </header>
         <Orders orders={this.state.orders}/>
       </main>
