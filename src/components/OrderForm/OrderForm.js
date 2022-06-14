@@ -10,7 +10,6 @@ class OrderForm extends Component {
     };
   }
 
-
   handleSubmit = e => {
     e.preventDefault();
     this.clearInputs();
@@ -18,6 +17,10 @@ class OrderForm extends Component {
 
   clearInputs = () => {
     this.setState({name: '', ingredients: []});
+  }
+
+  handleNameChange = (e) => {
+    this.setState({name: e.target.value})
   }
 
   render() {
